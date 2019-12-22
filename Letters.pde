@@ -2,8 +2,8 @@ public static class Letters{
   
   private static char[][] letters = {
     {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'}, 
-    {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'}, 
-    {'z', 'x', 'c', 'v', 'b', 'n', 'm'}
+    {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ' '}, 
+    {'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ', ' ', ' '}
   };
 
   public static char getLetter(int x, int y){
@@ -13,24 +13,30 @@ public static class Letters{
       return '0';
   }
   
-  public static int[] getPos(char ch){
-    int i, j;
-    int[] pos = new int[2];
+  public static int getPosX(char ch){
     
-    pos[0] = -1;
-    pos[1] = -1;
-    
-    for (i = 0; i < 3; i++){
-      for (j = 0; j < 10; j++){
+    for (int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
         if (ch == letters[i][j]){
-          pos[0] = i;
-          pos[1] = j;
-          //qui dovrei uscire da entrambe i cicli
+          return i;
         }
       }
     }
-    return pos;
+    return -1;
   }
+  
+  public static int getPosY(char ch){
+    
+    for (int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        if (ch == letters[i][j]){
+          return j;
+        }
+      }
+    }
+    return -1;
+  }
+  
   
   /*private void initletters(){
     letters[0][0] = 'q';
