@@ -2,15 +2,76 @@ public static class Letters{
   
   private static char[][] letters = {
     {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'}, 
-    {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ' '}, 
-    {'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ', ' ', ' '}
+    {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '-'}, 
+    {'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ', '-', '-'}
   };
 
-  public static char getLetter(int x, int y){
+  public static char getLetter(int x, int y){  //Da coordinate tastiera a lettera
     if (x >= 0 && x < 3 && y >= 0 && y < 10)
       return letters[x][y];
     else
       return '0';
+  }
+  
+  public static char getLetter(int Ascii){  //Da codice ascii a lettera
+    
+    switch (Ascii) {
+
+    case 65:
+      return 'a';
+    case 66:
+      return 'b';
+    case 67:
+      return 'c';
+    case 68:
+      return 'd';
+    case 69:
+      return 'e';
+    case 70:
+      return 'f';
+    case 71:
+      return 'g';
+    case 72:
+      return 'h';
+    case 73:
+      return 'i';
+    case 74:
+      return 'j';
+    case 75:
+      return 'k';
+    case 76:
+      return 'l';
+    case 77:
+      return 'm';
+    case 78:
+      return 'n';
+    case 79:
+      return 'o';
+    case 80:
+      return 'p';
+    case 81:
+      return 'q';
+    case 82:
+      return 'r';
+    case 83:
+      return 's';
+    case 84:
+      return 't';
+    case 85:
+      return 'u';
+    case 86:
+      return 'v';
+    case 87:
+      return 'w';
+    case 88:
+      return 'x';
+    case 89:
+      return 'y';
+    case 90:
+      return 'z';
+    default:
+      return ' ';
+    }
   }
   
   public static int getPosX(char ch){

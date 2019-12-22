@@ -1,4 +1,4 @@
-Buttons buttons = new Buttons();
+Keyboard keyboard = new Keyboard();
 
 void setup() {
   size(840, 460);
@@ -10,11 +10,17 @@ void setup() {
 void draw() {
   background(200);
   
-  buttons.DrawGUI();
+  keyboard.DrawGUI();
 }
 
 void keyPressed(){
   if (key != CODED){
-    buttons.lightUp(keyCode);
+    keyboard.lightUp(keyCode);
+  }
+}
+
+void keyReleased(){
+  if (key != CODED){
+    keyboard.lightDown(keyCode);
   }
 }
