@@ -1,15 +1,38 @@
 public static class Letters{
   
-  private char[][] letters;
+  private static char[][] letters = {
+    {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'}, 
+    {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'}, 
+    {'z', 'x', 'c', 'v', 'b', 'n', 'm'}
+  };
 
-  public char getLetter(int x, int y){
+  public static char getLetter(int x, int y){
     if (x >= 0 && x < 3 && y >= 0 && y < 10)
       return letters[x][y];
     else
       return '0';
   }
   
-  private void initletters(){
+  public static int[] getPos(char ch){
+    int i, j;
+    int[] pos = new int[2];
+    
+    pos[0] = -1;
+    pos[1] = -1;
+    
+    for (i = 0; i < 3; i++){
+      for (j = 0; j < 10; j++){
+        if (ch == letters[i][j]){
+          pos[0] = i;
+          pos[1] = j;
+          //qui dovrei uscire da entrambe i cicli
+        }
+      }
+    }
+    return pos;
+  }
+  
+  /*private void initletters(){
     letters[0][0] = 'q';
     letters[0][1] = 'w';
     letters[0][2] = 'e';
@@ -36,5 +59,5 @@ public static class Letters{
     letters[2][4] = 'b';
     letters[2][5] = 'n';
     letters[2][6] = 'm';
-  }
+  }*/
 }
