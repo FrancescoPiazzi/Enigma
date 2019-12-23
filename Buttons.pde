@@ -17,13 +17,31 @@ public class Keyboard {
     char CharToLightUp = Letters.getLetter(k);
     buttonsPressed[Letters.getPosX(CharToLightUp)][Letters.getPosY(CharToLightUp)] = true;
   }
+  public void lightUp(char CharToLightUp) {
+    buttonsPressed[Letters.getPosX(CharToLightUp)][Letters.getPosY(CharToLightUp)] = true;
+  }
   
   public void lightDown(int k) {
     char CharToLightDown = Letters.getLetter(k);
     buttonsPressed[Letters.getPosX(CharToLightDown)][Letters.getPosY(CharToLightDown)] = false;
   }
+  public void lightDown(char CharToLightDown) {
+    buttonsPressed[Letters.getPosX(CharToLightDown)][Letters.getPosY(CharToLightDown)] = false;
+  }
 
-
+  public char cript(int k, Rotor r1, Rotor r2, Rotor r3){
+  
+    char CriptedChar;
+    
+    CriptedChar = r1.convert(Letters.getLetter(k));
+    CriptedChar = r2.convert(CriptedChar); //<>//
+    CriptedChar = r3.convert(CriptedChar);
+    CriptedChar = r3.convert(CriptedChar);
+    CriptedChar = r2.convert(CriptedChar);
+    CriptedChar = r1.convert(CriptedChar);
+    
+    return CriptedChar;
+  }
 
   void DrawGUI() {
     
