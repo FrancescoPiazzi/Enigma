@@ -15,6 +15,7 @@ void draw() {
 
 void keyPressed(){
   if (key != CODED){
+    //char CriptedKey = keyboard.cript(keyCode);
     keyboard.lightUp(keyCode);
   }
 }

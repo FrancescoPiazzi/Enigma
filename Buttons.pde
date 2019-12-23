@@ -19,8 +19,8 @@ public class Keyboard {
   }
   
   public void lightDown(int k) {
-    char CharToLightUp = Letters.getLetter(k);
-    buttonsPressed[Letters.getPosX(CharToLightUp)][Letters.getPosY(CharToLightUp)] = false;
+    char CharToLightDown = Letters.getLetter(k);
+    buttonsPressed[Letters.getPosX(CharToLightDown)][Letters.getPosY(CharToLightDown)] = false;
   }
 
 
