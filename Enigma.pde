@@ -20,14 +20,14 @@ void draw() {
 void keyPressed(){
   if (key != CODED && !KPressed){
     CriptedKey = keyboard.cript(keyCode, r1, r1, r1);
-    keyboard.lightUp(CriptedKey); //<>//
+    keyboard.light(CriptedKey, true); //<>//
     KPressed = true;
   }
 }
 
 void keyReleased(){
   if (key != CODED){
-    keyboard.lightDown(CriptedKey); //<>//
+    keyboard.light(CriptedKey, false); //<>//
     KPressed = false;
   }
 }

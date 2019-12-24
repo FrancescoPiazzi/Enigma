@@ -13,21 +13,14 @@ public class Keyboard {
     buttonsPressed = new boolean[3][10];
   }
 
-  public void lightUp(int k) {
+  public void light(int k, boolean On) {
     char CharToLightUp = Letters.getLetter(k);
-    buttonsPressed[Letters.getPosX(CharToLightUp)][Letters.getPosY(CharToLightUp)] = true;
+    buttonsPressed[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)] = On;
   }
-  public void lightUp(char CharToLightUp) {
-    buttonsPressed[Letters.getPosX(CharToLightUp)][Letters.getPosY(CharToLightUp)] = true;
+  public void light(char CharToLightUp, boolean On) {
+    buttonsPressed[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)] = On;
   }
   
-  public void lightDown(int k) {
-    char CharToLightDown = Letters.getLetter(k);
-    buttonsPressed[Letters.getPosX(CharToLightDown)][Letters.getPosY(CharToLightDown)] = false;
-  }
-  public void lightDown(char CharToLightDown) {
-    buttonsPressed[Letters.getPosX(CharToLightDown)][Letters.getPosY(CharToLightDown)] = false;
-  }
 
   public char cript(int k, Rotor r1, Rotor r2, Rotor r3){
   
