@@ -24,17 +24,23 @@ public class Keyboard {
 
   public char cript(int k, Rotor r1, Rotor r2, Rotor r3, Reflector ref){
   
-    char CriptedChar;
+    char CriptedChar = Letters.getLetter(k);
     
-    CriptedChar = r1.convert(Letters.getLetter(k));
-    CriptedChar = r2.convert(CriptedChar); //<>//
+    CriptedChar = r1.convert(CriptedChar);
+    CriptedChar = r2.convert(CriptedChar);
     CriptedChar = r3.convert(CriptedChar);
     CriptedChar = ref.convert(CriptedChar);
-    CriptedChar = r3.convert(CriptedChar);
-    CriptedChar = r2.convert(CriptedChar);
-    CriptedChar = r1.convert(CriptedChar);
+    CriptedChar = r3.reverseConvert(CriptedChar);
+    CriptedChar = r2.reverseConvert(CriptedChar);
+    CriptedChar = r1.reverseConvert(CriptedChar); //<>//
     
-    return CriptedChar;
+    if (r1.increaseCounter()){
+      if(r2.increaseCounter()){
+        r3.increaseCounter();
+      }
+    }
+        
+    return CriptedChar; //<>//
   }
 
   void DrawGUI() {

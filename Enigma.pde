@@ -1,12 +1,15 @@
+//{'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''}
+
+
 Keyboard keyboard = new Keyboard();
 
 char CriptedKey;
 boolean KPressed = false;
 
-Rotor1 r1 = new Rotor1();
-Rotor2 r2 = new Rotor2();
+Rotor2 r1 = new Rotor2();
+Rotor1 r2 = new Rotor1();
 Rotor3 r3 = new Rotor3();
-Reflector1 reflector = new Reflector1();
+Reflector2 reflector = new Reflector2();
 
 void setup() {
   size(840, 460);
@@ -24,14 +27,14 @@ void draw() {
 void keyPressed(){
   if (key != CODED && !KPressed){
     CriptedKey = keyboard.cript(keyCode, r1, r2, r3, reflector);
-    keyboard.light(CriptedKey, true); //<>//
+    keyboard.light(CriptedKey, true);
     KPressed = true;
   }
 }
 
 void keyReleased(){
   if (key != CODED){
-    keyboard.light(CriptedKey, false); //<>//
+    keyboard.light(CriptedKey, false);
     KPressed = false;
   }
 }
