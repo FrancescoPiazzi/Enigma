@@ -16,6 +16,8 @@ public static abstract class Reflector{
     }
   }
   
+  public abstract int getID();
+  
 }
 
 public class Reflector1 extends Reflector{
@@ -23,6 +25,8 @@ public class Reflector1 extends Reflector{
   Reflector1(){
     Output = Output1;
   }
+  
+  public int getID(){ return 1; }
 }
 
 public class Reflector2 extends Reflector{
@@ -30,4 +34,6 @@ public class Reflector2 extends Reflector{
   Reflector2(){
     Output = Output2;
   }
+  
+  public int getID(){ return 2; }
 }

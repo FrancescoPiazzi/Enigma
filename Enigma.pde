@@ -1,6 +1,3 @@
-//{'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''}
-
-
 Keyboard keyboard = new Keyboard();
 
 char CriptedKey;
@@ -21,7 +18,11 @@ void setup() {
 void draw() {
   background(200);
   
-  keyboard.DrawGUI();
+  keyboard.DrawGUI(r1, r2, r3, reflector);
+}
+
+void mouseClicked(){
+  keyboard.update(mouseX, mouseY);
 }
 
 void keyPressed(){
