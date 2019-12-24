@@ -23,7 +23,7 @@ void draw() {
 
 void keyPressed(){
   if (key != CODED && !KPressed){
-    CriptedKey = keyboard.cript(keyCode, r1, r1, r1);
+    CriptedKey = keyboard.cript(keyCode, r1, r2, r3, reflector);
     keyboard.light(CriptedKey, true); //<>//
     KPressed = true;
   }

@@ -1,6 +1,6 @@
 public static abstract class Reflector{
 
-  char[] Input = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+  char[] Input = Letters.alphabeticLetters;
   
   char[] Output1 = {'y', 'r', 'u', 'h', 'q', 's', 'l', 'd', 'p', 'x', 'n', 'g', 'o', 'k', 'm', 'i', 'e', 'b', 'f', 'z', 'c', 'w', 'v', 'j', 'a', 't'};
   //char Output2 = FVPJIAOYEDRZXWGCTKUQSBNMHL

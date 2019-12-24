@@ -1,12 +1,13 @@
 public static class Letters {
 
-  private static char[][] letters = {
+  private static char[][] keyboardLetters = {
     {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'}, 
     {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '-'}, 
     {'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ', '-', '-'}
   };
 
-  private static char[] plainLetters = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'};
+  static char[] plainLetters = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'};
+  static char[] alphabeticLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
   public static boolean isLetter(char ch) {
 
@@ -21,7 +22,7 @@ public static class Letters {
 
   public static char getLetter(int x, int y) {  //Da coordinate tastiera a lettera
     if (x >= 0 && x < 3 && y >= 0 && y < 10)
-      return letters[x][y];
+      return keyboardLetters[x][y];
     else
       return '0';
   }
@@ -152,7 +153,7 @@ public static class Letters {
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 10; j++) {
-        if (ch == letters[i][j]) {
+        if (ch == keyboardLetters[i][j]) {
           return j;
         }
       }
@@ -164,7 +165,7 @@ public static class Letters {
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 10; j++) {
-        if (ch == letters[i][j]) {
+        if (ch == keyboardLetters[i][j]) {
           return i;
         }
       }
