@@ -8,6 +8,7 @@ public static abstract class Rotor {
 
   char[] Output;
   int Pos;
+  public color Color;
 
   public char convert(char cInput) {
     int OutputIndex = Letters.getNumber(cInput)-65;  //-65 perchè getNumber mi dà il valore corrispondente alla tabella di codifica ascii, che può andare da 65 a 90
@@ -80,6 +81,7 @@ public class Rotor1 extends Rotor {
   Rotor1() { 
     Output = Output1;  
     Pos = 1;
+    Color = color(255, 0, 0);
   }
 
 }
@@ -89,6 +91,7 @@ public class Rotor2 extends Rotor {
   Rotor2() { 
     Output = Output2;  
     Pos = 1;
+    Color = color(0, 255, 0);
   }
 }
 
@@ -97,5 +100,24 @@ public class Rotor3 extends Rotor {
   Rotor3() { 
     Output = Output3;  
     Pos = 1;
+    Color = color(255, 0, 255);
+  }
+}
+
+public class Rotor4 extends Rotor {
+
+  Rotor4() { 
+    Output = Output4;  
+    Pos = 1;
+    Color = color(255, 255, 0);
+  }
+}
+
+public class Rotor5 extends Rotor {
+
+  Rotor5() { 
+    Output = Output5;  
+    Pos = 1;
+    Color = color(0, 255, 255);
   }
 }

@@ -17,13 +17,14 @@ public static abstract class Reflector{
   }
   
   public abstract int getID();
-  
+  public color Color;
 }
 
 public class Reflector1 extends Reflector{
   
   Reflector1(){
     Output = Output1;
+    Color = color(0, 100, 255);
   }
   
   public int getID(){ return 1; }
@@ -33,6 +34,7 @@ public class Reflector2 extends Reflector{
   
   Reflector2(){
     Output = Output2;
+    Color = color(255, 100, 0);
   }
   
   public int getID(){ return 2; }
