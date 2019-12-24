@@ -2,7 +2,11 @@ Keyboard keyboard = new Keyboard();
 
 char CriptedKey;
 boolean KPressed = false;
+
 Rotor1 r1 = new Rotor1();
+Rotor2 r2 = new Rotor2();
+Rotor3 r3 = new Rotor3();
+Reflector1 reflector = new Reflector1();
 
 void setup() {
   size(840, 460);

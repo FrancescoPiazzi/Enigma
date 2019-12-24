@@ -22,13 +22,14 @@ public class Keyboard {
   }
   
 
-  public char cript(int k, Rotor r1, Rotor r2, Rotor r3){
+  public char cript(int k, Rotor r1, Rotor r2, Rotor r3, Reflector ref){
   
     char CriptedChar;
     
     CriptedChar = r1.convert(Letters.getLetter(k));
     CriptedChar = r2.convert(CriptedChar); //<>//
     CriptedChar = r3.convert(CriptedChar);
+    CriptedChar = ref.convert(CriptedChar);
     CriptedChar = r3.convert(CriptedChar);
     CriptedChar = r2.convert(CriptedChar);
     CriptedChar = r1.convert(CriptedChar);
