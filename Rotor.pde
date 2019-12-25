@@ -26,15 +26,10 @@ public static abstract class Rotor {
     for (char i : Letters.alphabeticLetters) {
       if (convert(i) == cInput) {
         InputIndex = Letters.getNumber(i)-65;
-        break;
+        return Letters.alphabeticLetters[InputIndex];
       }
     }
-
-    if (InputIndex >= 0 && InputIndex < 26) {
-      return Letters.alphabeticLetters[InputIndex];
-    } else {
-      return '0';
-    }
+    return '0';
   }
   
   public boolean increaseCounter() {

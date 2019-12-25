@@ -1,5 +1,3 @@
-Keyboard keyboard = new Keyboard();
-
 char CriptedKey;
 String CriptedText = new String();
 boolean KPressed = false;
@@ -9,20 +7,21 @@ Rotor5 r2 = new Rotor5();
 Rotor4 r3 = new Rotor4();
 Reflector2 reflector = new Reflector2();
 
+Keyboard keyboard = new Keyboard(r1, r2, r3, reflector);
+
 void setup(){
   size(840, 460);
   ellipseMode(CENTER);
-  textMode(SHAPE);
   noStroke();
 }
 
 void draw(){
   background(200);
-  keyboard.DrawGUI(r1, r2, r3, reflector, CriptedText);
+  keyboard.DrawGUI(CriptedText);
 }
 
 void mouseClicked(){
-  keyboard.update(mouseX, mouseY, r1, r2, r3, reflector);
+  keyboard.update(mouseX, mouseY);
 }
 
 void keyPressed(){
@@ -34,8 +33,8 @@ void keyPressed(){
       CriptedKey = keyboard.cript(keyCode, r1, r2, r3, reflector);
       keyboard.light(CriptedKey, true);
       CriptedText = CriptedText + CriptedKey;
-      KPressed = true; //<>//
-    }
+      KPressed = true;
+    } //<>//
   }
 }
 

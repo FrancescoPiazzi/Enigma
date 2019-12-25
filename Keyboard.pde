@@ -16,12 +16,18 @@ public class Keyboard {
   //final color DarkButtonColor = color(20);
   //inal color LightButtonColor = color(255);
   
-  final int LineLength = 70;
+  final int LineLength = 70;  //La lunghezza massima dell'output stampato
 
   private boolean[][] buttonsPressed;
+  private Rotor r1, r2, r3;
+  private Reflector ref;
 
-  public Keyboard() {
+  public Keyboard(Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
     buttonsPressed = new boolean[3][10];
+    this.r1 = r1;
+    this.r2 = r2;
+    this.r3 = r3;
+    this.ref = ref;
   }
 
   public void light(int k, boolean On) {
@@ -54,7 +60,7 @@ public class Keyboard {
     return CriptedChar;
   }
 
-  void DrawGUI(Rotor r1, Rotor r2, Rotor r3, Reflector ref, String CriptedText) {
+  void DrawGUI(String CriptedText) {
 
     color btnColor = LightColor;
     color textColor = DarkColor;
@@ -114,16 +120,19 @@ public class Keyboard {
     }
   }
 
-  void update(float x, float y, Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
+  void update(float x, float y) {
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*1, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { System.out.println("Reflector"); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r3.increaseCounter(); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r3.decreaseCounter(); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r2.increaseCounter(); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r2.decreaseCounter(); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r1.increaseCounter(); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r1.decreaseCounter(); }
   }
 }
