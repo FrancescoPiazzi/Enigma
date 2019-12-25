@@ -21,6 +21,7 @@ public class Keyboard {
   private boolean[][] buttonsPressed;
   private Rotor r1, r2, r3;
   private Reflector ref;
+  private String CriptedText;
 
   public Keyboard(Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
     buttonsPressed = new boolean[3][10];
@@ -28,6 +29,16 @@ public class Keyboard {
     this.r2 = r2;
     this.r3 = r3;
     this.ref = ref;
+    CriptedText = "";
+  }
+  
+  public Keyboard() {
+    buttonsPressed = new boolean[3][10];
+    this.r1 = new Rotor1();
+    this.r2 = new Rotor2();
+    this.r3 = new Rotor3();
+    this.ref =  new Reflector1();
+    CriptedText = "";
   }
 
   public void light(int k, boolean On) {
@@ -39,7 +50,7 @@ public class Keyboard {
   }
 
 
-  public char cript(int k, Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
+  public char cript(int k) {
 
     char CriptedChar = Letters.getLetter(k);
 
@@ -56,11 +67,11 @@ public class Keyboard {
         r3.increaseCounter();
       }
     }
-
+    CriptedText = CriptedText + CriptedChar;
     return CriptedChar;
   }
 
-  void DrawGUI(String CriptedText) {
+  void DrawGUI() {
 
     color btnColor = LightColor;
     color textColor = DarkColor;
@@ -120,19 +131,25 @@ public class Keyboard {
     }
   }
 
-  void update(float x, float y) {
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*1, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { System.out.println("Reflector"); }
+  int update(float x, float y) {
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*1, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 0; }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r3.increaseCounter(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 3; }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r3.decreaseCounter(); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r2.increaseCounter(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 2; }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r2.decreaseCounter(); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r1.increaseCounter(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) {  System.out.println("Reflector"); }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 1; }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r1.decreaseCounter(); }
+    
+    return 0;
   }
+  
+  public Rotor getR1() { return r1; }
+  public Rotor getR2() { return r2; }
+  public Rotor getR3() { return r3; }
 }
