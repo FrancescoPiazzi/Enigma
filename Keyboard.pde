@@ -19,8 +19,8 @@ public class Keyboard {
   final int LineLength = 70;  //La lunghezza massima dell'output stampato
 
   private boolean[][] buttonsPressed;
-  private Rotor r1, r2, r3;
-  private Reflector ref;
+  Rotor r1, r2, r3;
+  Reflector ref;
   private String CriptedText;
 
   public Keyboard(Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
@@ -49,30 +49,35 @@ public class Keyboard {
     buttonsPressed[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)] = On;
   }
 
-
   public char cript(int k) {
+    char CriptedChar;
+    if (k != 32) {
+      CriptedChar = Letters.getLetter(k);
+      CriptedChar = r1.convert(CriptedChar);
+      CriptedChar = r2.convert(CriptedChar);
+      CriptedChar = r3.convert(CriptedChar);
+      CriptedChar = ref.convert(CriptedChar);
+      CriptedChar = r3.reverseConvert(CriptedChar);
+      CriptedChar = r2.reverseConvert(CriptedChar);
+      CriptedChar = r1.reverseConvert(CriptedChar);
 
-    char CriptedChar = Letters.getLetter(k);
-
-    CriptedChar = r1.convert(CriptedChar);
-    CriptedChar = r2.convert(CriptedChar);
-    CriptedChar = r3.convert(CriptedChar);
-    CriptedChar = ref.convert(CriptedChar);
-    CriptedChar = r3.reverseConvert(CriptedChar);
-    CriptedChar = r2.reverseConvert(CriptedChar);
-    CriptedChar = r1.reverseConvert(CriptedChar);
-
-    if (r1.increaseCounter()) {
-      if (r2.increaseCounter()) {
-        r3.increaseCounter();
+      if (r1.increaseCounter()) {
+        if (r2.increaseCounter()) {
+          r3.increaseCounter();
+        }
       }
     }
-    CriptedText = CriptedText + CriptedChar;
+    else {
+      CriptedChar = ' ';
+    }
+    
+    if(CriptedChar != '0'){
+      CriptedText = CriptedText + CriptedChar;
+    }
     return CriptedChar;
   }
 
   void DrawGUI() {
-
     color btnColor = LightColor;
     color textColor = DarkColor;
     
@@ -139,17 +144,14 @@ public class Keyboard {
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r3.decreaseCounter(); }
     
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r2.increaseCounter(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 2; }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 2; }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r2.decreaseCounter(); }
     
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r1.increaseCounter(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 1; }
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance+KeySize, 2) ) < ButtonSize/2) {  r1.increaseCounter(); } //<>//
+    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { return 1; }
     if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance-KeySize, 2) ) < ButtonSize/2) {  r1.decreaseCounter(); }
     
-    return 0;
+    return -1;
   }
   
-  public Rotor getR1() { return r1; }
-  public Rotor getR2() { return r2; }
-  public Rotor getR3() { return r3; }
 }
