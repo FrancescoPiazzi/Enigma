@@ -158,7 +158,7 @@ public static class Letters {
         }
       }
     }
-    return 7;
+    return 7;  //coordinata X del tasto di "errore"
   }
 
   public static int getPosY(char ch) {
@@ -170,6 +170,6 @@ public static class Letters {
         }
       }
     }
-    return 2;
+    return 2;  //coordinata Y del tasto di "errore"
   }
 }

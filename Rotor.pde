@@ -7,7 +7,7 @@ public static abstract class Rotor {
   char[] Output5 = {'v', 'z', 'b', 'r', 'g', 'i', 't', 'y', 'u', 'p', 's', 'd', 'n', 'h', 'l', 'x', 'a', 'w', 'm', 'j', 'q', 'o', 'f', 'e', 'c', 'k'};
 
   char[] Output;
-  int Pos;
+  int Pos;  //Non serve a nulla se non a scrivere la lettera che compare in nella GUI per segnare la posizione del rotore
   public color Color;
 
   public char convert(char cInput) {
@@ -32,7 +32,7 @@ public static abstract class Rotor {
     return '0';
   }
   
-  public boolean increaseCounter() {
+  public boolean step() {
     Rotate();
     if (Pos == 26){
       Pos = 1;
@@ -44,7 +44,7 @@ public static abstract class Rotor {
     }
   }
   
-  public boolean decreaseCounter() {
+  public boolean stepBack() {  //ritorna un booleano ma non gliene frega niente a nessuno dato che quando li muovi a mano se ne deve muovere sempre solo uno
     for(int i = 0; i < 25; i++){  //TODO scrivere un metodo che faccia la rotazione in senso opposto anzichè fare 25 volte quella in avanti
       Rotate();
     }
