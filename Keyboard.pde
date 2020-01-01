@@ -26,6 +26,11 @@ public class Keyboard {
   
   public Keyboard() {
     buttons = new Button[3][10];
+    for (int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        buttons[i][j] = new Button();
+      }
+    }
     r1 = new Rotor1();
     r2 = new Rotor2();
     r3 = new Rotor3();
