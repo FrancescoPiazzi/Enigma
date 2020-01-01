@@ -15,7 +15,7 @@ void draw(){
 }
 
 void mouseClicked(){
-  keyboard.update(mouseX, mouseY);
+  keyboard.update();
 }
 
 void keyPressed(){

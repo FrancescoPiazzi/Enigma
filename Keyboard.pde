@@ -1,22 +1,15 @@
 public class Keyboard {
 
-  final int KeySize = 40;
-  final int ButtonSize = 20;
-
-  final int TopDistance = 200;
-  final int VerticalDistance = 70;
-  final int LeftDistance = 100;
-  final int HorizontalDistance = 70;
-  
+  final int ManButtonSize = 20;
   final int ManButtonDistance = 30;  //La distanza dei i bottoni per spostare i rotori a mano 
 
   final int RotorTopDistance = 80;
   final int RotorLeftDistance = 50;
-
-  final color DarkColor = color(20);
-  final color LightColor = color(255);
   
   final int LineLength = 70;  //La lunghezza massima dell'output stampato
+  
+  final color DarkColor = color(20);  //TODO: creare una mini interfaccia per i colori perchè sono sia qui che in Button
+  final color LightColor = color(255);
 
   private Button[][] buttons;
   private Rotor r1, r2, r3;
@@ -28,7 +21,7 @@ public class Keyboard {
     buttons = new Button[3][10];
     for (int i = 0; i < 3; i++){
       for (int j = 0; j < 10; j++){
-        buttons[i][j] = new Button();
+        buttons[i][j] = new Button(j, i);
       }
     }
     r1 = new Rotor1();
@@ -92,19 +85,19 @@ public class Keyboard {
 
     //Colore per identificare i rotori
     fill(ref.Color);
-    ellipse(RotorLeftDistance*1, RotorTopDistance, ButtonSize, ButtonSize);
+    ellipse(RotorLeftDistance*1, RotorTopDistance, ManButtonSize, ManButtonSize);
     fill(r3.Color);
-    ellipse(RotorLeftDistance*2, RotorTopDistance, ButtonSize, ButtonSize);
+    ellipse(RotorLeftDistance*2, RotorTopDistance, ManButtonSize, ManButtonSize);
     fill(r2.Color);
-    ellipse(RotorLeftDistance*3, RotorTopDistance, ButtonSize, ButtonSize);
+    ellipse(RotorLeftDistance*3, RotorTopDistance, ManButtonSize, ManButtonSize);
     fill(r1.Color);
-    ellipse(RotorLeftDistance*4, RotorTopDistance, ButtonSize, ButtonSize);
+    ellipse(RotorLeftDistance*4, RotorTopDistance, ManButtonSize, ManButtonSize);
 
     //Bottoni per spostare manualmente i rotori
     fill(DarkColor);
     for (int i = 1; i < 4; i++) {
-      ellipse(RotorLeftDistance*(i+1), RotorTopDistance+ManButtonDistance, ButtonSize, ButtonSize);
-      ellipse(RotorLeftDistance*(i+1), RotorTopDistance-ManButtonDistance, ButtonSize, ButtonSize);
+      ellipse(RotorLeftDistance*(i+1), RotorTopDistance+ManButtonDistance, ManButtonSize, ManButtonSize);
+      ellipse(RotorLeftDistance*(i+1), RotorTopDistance-ManButtonDistance, ManButtonSize, ManButtonSize);
     }
 
     //Testo rotori
@@ -120,39 +113,45 @@ public class Keyboard {
         if ((i != 1 || j != 9) && (i != 2 || j != 8) && (i != 2 || j != 9)) {
           if (buttons[i][j].pressed) {
             fill(200, 200, 0);
-            ellipse(LeftDistance + i*20 + j*HorizontalDistance, VerticalDistance*i + TopDistance, KeySize, KeySize);
+            ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
             fill(DarkColor);
-            text(Letters.getLetter(i, j), LeftDistance + i*20 + j*HorizontalDistance, VerticalDistance*i + TopDistance);
+            text(Letters.getLetter(i, j), buttons[i][j].getLeft(), buttons[i][j].getTop());
           }
           else {
             fill(DarkColor);
-            ellipse(LeftDistance + i*20 + j*HorizontalDistance, VerticalDistance*i + TopDistance, KeySize, KeySize);
+            ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
             fill(LightColor);
-            text(Letters.getLetter(i, j), LeftDistance + i*20 + j*HorizontalDistance, VerticalDistance*i + TopDistance);
+            text(Letters.getLetter(i, j), buttons[i][j].getLeft(), buttons[i][j].getTop());
           }
         }
       }
     }
+    
   }
 
-  void update(float x, float y) {
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*1, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { 
+  void update() {
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*1, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { 
       if (ref instanceof Reflector1) { ref = new Reflector2(); }
       else { ref = new Reflector1(); }
     }
     
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance+ManButtonDistance, 2) ) < ButtonSize/2) {  r3.step(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { r3 = changeRotor(r3); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*2, 2) + Math.pow(y-RotorTopDistance-ManButtonDistance, 2) ) < ButtonSize/2) {  r3.stepBack(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*2, 2) + Math.pow(mouseY-RotorTopDistance+ManButtonDistance, 2) ) < ManButtonSize/2) {  r3.step(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*2, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { r3 = changeRotor(r3); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*2, 2) + Math.pow(mouseY-RotorTopDistance-ManButtonDistance, 2) ) < ManButtonSize/2) {  r3.stepBack(); }
     
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance+ManButtonDistance, 2) ) < ButtonSize/2) {  r2.step(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { r2 = changeRotor(r2); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*3, 2) + Math.pow(y-RotorTopDistance-ManButtonDistance, 2) ) < ButtonSize/2) {  r2.stepBack(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*3, 2) + Math.pow(mouseY-RotorTopDistance+ManButtonDistance, 2) ) < ManButtonSize/2) {  r2.step(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*3, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { r2 = changeRotor(r2); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*3, 2) + Math.pow(mouseY-RotorTopDistance-ManButtonDistance, 2) ) < ManButtonSize/2) {  r2.stepBack(); }
     
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance+ManButtonDistance, 2) ) < ButtonSize/2) {  r1.step(); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance, 2) ) < ButtonSize/2) { r1 = changeRotor(r1); }
-    if (Math.sqrt(Math.pow(x-RotorLeftDistance*4, 2) + Math.pow(y-RotorTopDistance-ManButtonDistance, 2) ) < ButtonSize/2) {  r1.stepBack(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance+ManButtonDistance, 2) ) < ManButtonSize/2) {  r1.step(); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { r1 = changeRotor(r1); }
+    if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance-ManButtonDistance, 2) ) < ManButtonSize/2) {  r1.stepBack(); }
     
+    for(int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        buttons[i][j].updateClickedButton();
+      }
+    }
   }
   
   private Rotor changeRotor(Rotor r){
@@ -214,7 +213,7 @@ public class Keyboard {
       
   }
   
-  private void drawwires(){
+  private void drawWires(){
   
   }
 }
