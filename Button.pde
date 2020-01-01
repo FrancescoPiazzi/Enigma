@@ -14,7 +14,8 @@ public class Button{
   private boolean pressed;
   private boolean plugged;
   private int XPos, YPos;
-  private color Color;
+  private color BackColor;
+  private color TextColor;
 
   Button(int XPos, int YPos){
     pressed = false;
@@ -23,7 +24,8 @@ public class Button{
     this.XPos = LeftDistance + XPos*ColumnDistance + YPos*HorizontalDistance;
     this.YPos = RawDistance*YPos + TopDistance;
     
-    Color = DarkColor;
+    BackColor = DarkColor;
+    TextColor = LightColor;
   }
   
   public int getLeft(){
@@ -32,12 +34,39 @@ public class Button{
   public int getTop(){
     return this.YPos;
   }
-  public color getColor(){
-    return this.Color;
+  
+  public color getBackColor(){
+    return this.BackColor;
+  }
+  public color getTextColor(){
+    return this.TextColor;
   }
   
   public void updateClickedButton(){
-    if((Math.sqrt(Math.pow(XPos-this.XPos, 2) + Math.pow(YPos-this.YPos, 2) ) < ButtonSize/2))  pressed = true;
-    else pressed = false;
+    if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2)) { 
+      pressed = true;
+      BackColor = LightColor;
+      TextColor = DarkColor;
+    }
+    else { 
+      pressed = false;
+      BackColor = DarkColor;
+      TextColor = LightColor;
+    }
+  }
+  
+  public void updatePressedKey(){
+    if(pressed){
+      BackColor = LightColor;
+      TextColor = DarkColor;
+    }
+    else{
+      BackColor = DarkColor;
+      TextColor = LightColor;
+    }
+  }
+  
+  public void setPressed(boolean pressed){
+    this.pressed = pressed;
   }
 }

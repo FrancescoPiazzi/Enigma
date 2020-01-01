@@ -68,6 +68,7 @@ public class Keyboard {
     if(CriptedChar != '0'){
       CriptedText = CriptedText + CriptedChar;
     }
+    
     return CriptedChar;
   }
 
@@ -111,22 +112,15 @@ public class Keyboard {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 10; j++) {
         if ((i != 1 || j != 9) && (i != 2 || j != 8) && (i != 2 || j != 9)) {
-          if (buttons[i][j].pressed) {
-            fill(200, 200, 0);
-            ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
-            fill(DarkColor);
-            text(Letters.getLetter(i, j), buttons[i][j].getLeft(), buttons[i][j].getTop());
-          }
-          else {
-            fill(DarkColor);
-            ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
-            fill(LightColor);
-            text(Letters.getLetter(i, j), buttons[i][j].getLeft(), buttons[i][j].getTop());
-          }
+          fill(buttons[i][j].getBackColor());
+          ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
+          fill(buttons[i][j].getTextColor());
+          text(Letters.getLetter(i, j), buttons[i][j].getLeft(), buttons[i][j].getTop());
         }
       }
     }
     
+    updateAllPressedKeys();
   }
 
   void update() {
@@ -147,11 +141,7 @@ public class Keyboard {
     if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { r1 = changeRotor(r1); }
     if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance-ManButtonDistance, 2) ) < ManButtonSize/2) {  r1.stepBack(); }
     
-    for(int i = 0; i < 3; i++){
-      for (int j = 0; j < 10; j++){
-        buttons[i][j].updateClickedButton();
-      }
-    }
+    updateAllButtons();
   }
   
   private Rotor changeRotor(Rotor r){
@@ -213,7 +203,24 @@ public class Keyboard {
       
   }
   
+  private void updateAllButtons(){
+    for(int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        buttons[i][j].updateClickedButton();
+      }
+    }
+  }
+  
+  private void updateAllPressedKeys(){
+    for(int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        buttons[i][j].updatePressedKey();
+      }
+    }
+  }
+  
   private void drawWires(){
   
   }
+  
 }
