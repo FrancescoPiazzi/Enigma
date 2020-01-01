@@ -15,33 +15,23 @@ public class Keyboard {
 
   final color DarkColor = color(20);
   final color LightColor = color(255);
-  //final color DarkButtonColor = color(20);
-  //inal color LightButtonColor = color(255);
   
   final int LineLength = 70;  //La lunghezza massima dell'output stampato
 
-  private boolean[][] buttonsPressed;
+  private Button[][] buttons;
   private Rotor r1, r2, r3;
   private Reflector ref;
   private String CriptedText;
-  private boolean[] TakenRotors = new boolean[5];
-
-  /*public Keyboard(Rotor r1, Rotor r2, Rotor r3, Reflector ref) {
-    buttonsPressed = new boolean[3][10];
-    this.r1 = r1;
-    this.r2 = r2;
-    this.r3 = r3;
-    this.ref = ref;
-    CriptedText = "";
-  }*/
+  private boolean[] TakenRotors;
   
   public Keyboard() {
-    buttonsPressed = new boolean[3][10];
-    this.r1 = new Rotor1();
-    this.r2 = new Rotor2();
-    this.r3 = new Rotor3();
-    this.ref =  new Reflector1();
+    buttons = new Button[3][10];
+    r1 = new Rotor1();
+    r2 = new Rotor2();
+    r3 = new Rotor3();
+    ref =  new Reflector1();
     CriptedText = "";
+    TakenRotors = new boolean[5];
     TakenRotors[0] = true;
     TakenRotors[1] = true;
     TakenRotors[2] = true;
@@ -49,10 +39,10 @@ public class Keyboard {
 
   public void light(int k, boolean On) {
     char CharToLightUp = Letters.getLetter(k);
-    buttonsPressed[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)] = On;
+    buttons[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)].pressed = On;
   }
   public void light(char CharToLightUp, boolean On) {
-    buttonsPressed[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)] = On;
+    buttons[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)].pressed = On;
   }
 
   public char cript(int k) {
@@ -123,7 +113,7 @@ public class Keyboard {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 10; j++) {
         if ((i != 1 || j != 9) && (i != 2 || j != 8) && (i != 2 || j != 9)) {
-          if (buttonsPressed[i][j]) {
+          if (buttons[i][j].pressed) {
             fill(200, 200, 0);
             ellipse(LeftDistance + i*20 + j*HorizontalDistance, VerticalDistance*i + TopDistance, KeySize, KeySize);
             fill(DarkColor);
@@ -219,4 +209,7 @@ public class Keyboard {
       
   }
   
+  private void drawwires(){
+  
+  }
 }

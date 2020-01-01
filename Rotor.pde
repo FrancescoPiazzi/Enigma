@@ -76,7 +76,7 @@ public class Rotor1 extends Rotor {
   Rotor1() { 
     Output = Output1;  
     Pos = 1;
-    Color = color(255, 0, 0);
+    Color = color(255, 0, 0, 180);
   }
 
 }
@@ -86,7 +86,7 @@ public class Rotor2 extends Rotor {
   Rotor2() { 
     Output = Output2;  
     Pos = 1;
-    Color = color(0, 255, 0);
+    Color = color(0, 255, 0, 180);
   }
 }
 
@@ -95,7 +95,7 @@ public class Rotor3 extends Rotor {
   Rotor3() { 
     Output = Output3;  
     Pos = 1;
-    Color = color(255, 0, 255);
+    Color = color(255, 0, 255, 180);
   }
 }
 
@@ -104,7 +104,7 @@ public class Rotor4 extends Rotor {
   Rotor4() { 
     Output = Output4;  
     Pos = 1;
-    Color = color(255, 255, 0);
+    Color = color(255, 255, 0, 180);
   }
 }
 
@@ -113,6 +113,6 @@ public class Rotor5 extends Rotor {
   Rotor5() { 
     Output = Output5;  
     Pos = 1;
-    Color = color(0, 255, 255);
+    Color = color(0, 255, 255, 180);
   }
 }

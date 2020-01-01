@@ -24,7 +24,7 @@ public class Reflector1 extends Reflector{
   
   Reflector1(){
     Output = Output1;
-    Color = color(0, 100, 255);
+    Color = color(0, 100, 255, 180);
   }
   
   public int getID(){ return 1; }
@@ -34,7 +34,7 @@ public class Reflector2 extends Reflector{
   
   Reflector2(){
     Output = Output2;
-    Color = color(255, 100, 0);
+    Color = color(255, 100, 0, 180);
   }
   
   public int getID(){ return 2; }
