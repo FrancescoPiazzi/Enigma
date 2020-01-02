@@ -11,7 +11,7 @@ public static class Letters {
 
   public static boolean isLetter(char ch) {
 
-    for (int i : plainLetters) {
+    for (char i : plainLetters) {
       if (i == ch) {
         return true;
       }
@@ -21,8 +21,8 @@ public static class Letters {
 
 
   public static char getLetter(int x, int y) {  //Da coordinate tastiera a lettera
-    if (x >= 0 && x < 3 && y >= 0 && y < 10)
-      return keyboardLetters[x][y];
+    if (x >= 0 && x < 10 && y >= 0 && y < 3)
+      return keyboardLetters[y][x];
     else
       return '0';
   }

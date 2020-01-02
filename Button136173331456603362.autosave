@@ -16,7 +16,7 @@ public class Button{
   private boolean pressed;
   private boolean clicked;
   
-  //private char pluggedTo;
+  private char pluggedTo;
   
   private int XPos, YPos;
   
@@ -29,7 +29,7 @@ public class Button{
     pressed = false;
     clicked = false;
     
-    //pluggedTo = Letters.getLetter(XPos, YPos);
+    pluggedTo = Letters.getLetter(XPos, YPos);
     
     this.XPos = LeftDistance + XPos*ColumnDistance + YPos*HorizontalDistance;
     this.YPos = RawDistance*YPos + TopDistance;
@@ -52,16 +52,21 @@ public class Button{
   }
   public color getTextColor(){
     return TextColor;
-  }
+  } //<>//
   
-  public boolean updateClickedButton(){
+  public char updateClickedButton(){
     if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2)) {
+      if(clicked){
+        return Key;
+      }
+      else{
         clicked = true;
-        return true;
+        return '0';
+      }
     }
     else { 
       clicked = false;
-      return false;
+      return '0';
     }
   }
   
@@ -84,15 +89,7 @@ public class Button{
     this.pressed = pressed;
   }
   
-  public void setClicked(boolean clicked){
-    this.clicked = clicked;
-  }
-  
-  public boolean getClicked(){
-    return clicked;
-  }
-  
-  /*public void plugTo(char chToPlug){
+  public void plugTo(char chToPlug){
     pluggedTo = chToPlug;
-  }*/
+  }
 }

@@ -1,7 +1,8 @@
+Keyboard keyboard = new Keyboard();
+
+//Colors colors = new Colors();
 char CriptedKey;
 boolean KPressed = false;
-
-Keyboard keyboard = new Keyboard();
 
 void setup(){
   size(840, 460);

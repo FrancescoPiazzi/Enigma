@@ -2,11 +2,11 @@ public class Button{
 
   static final int ButtonSize = 40;  //TODO: togliere il fatto che sia statico e fare in modo che il bottone premuto diventi leggermente più piccolo
   
-  final int TopDistance = 200;
-  final int RawDistance = 70;
-  final int LeftDistance = 100;
-  final int HorizontalDistance = 30;
-  final int ColumnDistance = 70;
+  static final int TopDistance = 200;
+  static final int RawDistance = 70;
+  static final int LeftDistance = 100;
+  static final int HorizontalDistance = 30;
+  static final int ColumnDistance = 70;
   
   final color LightColor = color(240);
   final color DarkColor = color(20);
@@ -16,7 +16,7 @@ public class Button{
   private boolean pressed;
   private boolean clicked;
   
-  //private char pluggedTo;
+  private char pluggedTo;
   
   private int XPos, YPos;
   
@@ -29,7 +29,7 @@ public class Button{
     pressed = false;
     clicked = false;
     
-    //pluggedTo = Letters.getLetter(XPos, YPos);
+    pluggedTo = Letters.getLetter(XPos, YPos);
     
     this.XPos = LeftDistance + XPos*ColumnDistance + YPos*HorizontalDistance;
     this.YPos = RawDistance*YPos + TopDistance;
@@ -54,14 +54,16 @@ public class Button{
     return TextColor;
   }
   
-  public boolean updateClickedButton(){
+  public void updateClickedButton(){
     if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2)) {
+      if(clicked){
+
+      }
+      else
         clicked = true;
-        return true;
     }
     else { 
       clicked = false;
-      return false;
     }
   }
   
@@ -84,15 +86,7 @@ public class Button{
     this.pressed = pressed;
   }
   
-  public void setClicked(boolean clicked){
-    this.clicked = clicked;
-  }
-  
-  public boolean getClicked(){
-    return clicked;
-  }
-  
-  /*public void plugTo(char chToPlug){
+  public void plugTo(char chToPlug){
     pluggedTo = chToPlug;
-  }*/
+  }
 }

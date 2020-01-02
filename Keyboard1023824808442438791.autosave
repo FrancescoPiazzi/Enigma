@@ -11,14 +11,13 @@ public class Keyboard {
   final color DarkColor = color(20);
   final color LightColor = color(230);
   final color ClickedColor = color (200, 0, 0);
-  
+
   private Button[][] buttons;
-  
+  private char[][] plugs;
   private Rotor r1, r2, r3;
   private Reflector ref;
   private String CriptedText;
   private boolean[] TakenRotors;
-  private Plugboard plugboard;
   
   public Keyboard() {
     buttons = new Button[3][10];
@@ -27,20 +26,27 @@ public class Keyboard {
         buttons[i][j] = new Button(j, i);
       }
     }
-
+    plugs = new char[3][10];
+    for (int i = 0; i < 3; i++){
+      for (int j = 0; j < 10; j++){
+        plugs[i][j] = Letters.getLetter(i, j);
+      }
+    }
     r1 = new Rotor1();
     r2 = new Rotor2();
     r3 = new Rotor3();
-    ref =  new Reflector1();     
+    ref =  new Reflector1();
+    CriptedText = "";
     TakenRotors = new boolean[5];
     TakenRotors[0] = true;
     TakenRotors[1] = true;
     TakenRotors[2] = true;
-
-    CriptedText = "";
-    plugboard = new Plugboard();
   }
- //<>//
+
+  public void light(int k, boolean On) {
+    char CharToLightUp = Letters.getLetter(k);
+    buttons[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)].pressed = On;
+  }
   public void light(char CharToLightUp, boolean On) {
     buttons[Letters.getPosY(CharToLightUp)][Letters.getPosX(CharToLightUp)].pressed = On;
   }
@@ -214,37 +220,11 @@ public class Keyboard {
   }
   
   private void updateAllButtons(){
-    char prevClickedKey = '0';
-    boolean Break = false;
-    
-    for(int i = 0; i < 3; i++){
-      for(int j = 0; j < 10; j++){
-        if(buttons[i][j].getClicked()){
-          prevClickedKey = buttons[i][j].Key;
-          Break = true;
-          break;
-        }
-      }
-      if(Break){
-        Break = false;
-        break;
-      }
-    }
-    
     for(int i = 0; i < 3; i++){
       for (int j = 0; j < 10; j++){
-        if(buttons[i][j].updateClickedButton()){
-          if(prevClickedKey != '0'){
-            if(plugboard.plugs[i][j] == Letters.getLetter(j, i) && plugboard.plugs[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)] == prevClickedKey){  //Se quel tasto non è associato con un altro vuol dire che quel tasto non è connesso a nulla  //<>//
-              buttons[i][j].setClicked(false);
-              plugboard.plug(Letters.getLetter(j, i), prevClickedKey); //<>//
-              break;  //una volta connesso smetto di iterare
-            }
-          }
-        }
+        buttons[i][j].updateClickedButton();
       }
     }
-    
   }
   
   private void updateAllPressedKeys(){
@@ -255,8 +235,8 @@ public class Keyboard {
     }
   }
   
-  public void setClickedButton(int PosX, int PosY, boolean Clicked){
-    buttons[PosX][PosY].setClicked(Clicked);
+  private void drawWires(){
+  
   }
   
 }
