@@ -54,6 +54,10 @@ public class Button{
     return TextColor;
   }
   
+  public char getKey(){
+    return Key;
+  }
+  
   public boolean updateClickedButton(){
     if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2)) {
         clicked = true;

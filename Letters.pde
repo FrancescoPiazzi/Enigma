@@ -19,7 +19,6 @@ public static class Letters {
     return false;
   }
 
-
   public static char getLetter(int x, int y) {  //Da coordinate tastiera a lettera
     if (x >= 0 && x < 10 && y >= 0 && y < 3)
       return keyboardLetters[y][x];

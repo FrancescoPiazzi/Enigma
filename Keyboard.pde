@@ -46,9 +46,11 @@ public class Keyboard {
   }
 
   public char cript(int k) {
+    
     char CriptedChar;
     if (k != 32) {
       CriptedChar = Letters.getLetter(k);
+      CriptedChar = plugboard.plugs[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)];
       CriptedChar = r1.convert(CriptedChar);
       CriptedChar = r2.convert(CriptedChar);
       CriptedChar = r3.convert(CriptedChar);
@@ -56,6 +58,7 @@ public class Keyboard {
       CriptedChar = r3.reverseConvert(CriptedChar);
       CriptedChar = r2.reverseConvert(CriptedChar);
       CriptedChar = r1.reverseConvert(CriptedChar);
+      CriptedChar = plugboard.plugs[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)];
 
       if (r1.step()) {
         if (r2.step()) {
@@ -130,7 +133,20 @@ public class Keyboard {
       }
     }
     
-    updateAllPressedKeys();
+    for(int i = 0; i < 3; i++){
+      for(int j = 0; j < 10; j++){
+        if(plugboard.plugs[i][j] != Letters.getLetter(j, i)){
+          stroke(200, 0, 0);
+          float X1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getLeft();
+          float Y1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getTop();
+          float X2 = buttons[i][j].getLeft();
+          float Y2 = buttons[i][j].getTop();
+          line(X1, Y1, X2, Y2);
+          noStroke();
+        }
+      }
+    }
+    updateAllPressedKeys();  
   }
 
   void update() {
@@ -236,9 +252,10 @@ public class Keyboard {
         if(buttons[i][j].updateClickedButton()){
           if(prevClickedKey != '0'){
             if(plugboard.plugs[i][j] == Letters.getLetter(j, i) && plugboard.plugs[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)] == prevClickedKey){  //Se quel tasto non è associato con un altro vuol dire che quel tasto non è connesso a nulla  //<>//
-              buttons[i][j].setClicked(false);
               plugboard.plug(Letters.getLetter(j, i), prevClickedKey); //<>//
-              break;  //una volta connesso smetto di iterare
+              Break = true;  //una volta connesso smetto di iterare
+              buttons[i][j].setClicked(false);
+              buttons[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)].setClicked(false);
             }
           }
         }
@@ -255,8 +272,8 @@ public class Keyboard {
     }
   }
   
-  public void setClickedButton(int PosX, int PosY, boolean Clicked){
+  /*public void setClickedButton(int PosX, int PosY, boolean Clicked){
     buttons[PosX][PosY].setClicked(Clicked);
-  }
+  }*/
   
 }
