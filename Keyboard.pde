@@ -8,11 +8,15 @@ public class Keyboard {
   
   final int LineLength = 70;  //La lunghezza massima dell'output stampato
   
+  final int PlugSize = 6; //Dimensione dei cerchi che indicano i plug nei bottoni
+  final int WireSize = 2; //Spessore dei fili
+  
   final color DarkColor = color(20);
   final color LightColor = color(230);
   final color ClickedColor = color (200, 0, 0);
   final color BackgroundColor = color(200);
   final color WireColor = color(200, 0, 0);
+  final color PlugColor = color(160);
   
   private Button[][] buttons;
   
@@ -141,12 +145,16 @@ public class Keyboard {
       for(int j = 0; j < 10; j++){
         if(plugboard.plugs[i][j] != Letters.getLetter(j, i)){  //Non capisco perchè non mi dia errore nonostante plugs sia privata, in caso il metodo get c'è...
           stroke(WireColor);
-          strokeWeight(3);
+          strokeWeight(WireSize);
           float X1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getLeft();
           float Y1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getTop();
           float X2 = buttons[i][j].getLeft();
           float Y2 = buttons[i][j].getTop();
           line(X1, Y1, X2, Y2);
+          fill(PlugColor); 
+          strokeWeight(1);
+          ellipse(X1, Y1, PlugSize, PlugSize);
+          ellipse(X2, Y2, PlugSize, PlugSize);
           noStroke();
         }
       }
@@ -172,7 +180,7 @@ public class Keyboard {
     if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance, 2) ) < ManButtonSize/2) { r1 = changeRotor(r1); }
     if (Math.sqrt(Math.pow(mouseX-RotorLeftDistance*4, 2) + Math.pow(mouseY-RotorTopDistance-ManButtonDistance, 2) ) < ManButtonSize/2) {  r1.stepBack(); }
     
-    updateAllButtons();
+    updateAllClickedButtons();
   }
   
   private Rotor changeRotor(Rotor r){
@@ -197,8 +205,8 @@ public class Keyboard {
       r = firstRotorAvailable(1);
       TakenRotors[4] = false;
     }
-      
-    return r;  //In teoria non dovrei mai arrivarci ma se non lo metto processing mi insulta
+    
+    return r;
   }
   
   private Rotor firstRotorAvailable(int firstPossibleRotor){
@@ -234,7 +242,7 @@ public class Keyboard {
       
   }
   
-  private void updateAllButtons(){
+  private void updateAllClickedButtons(){
     char prevClickedKey = '0';
     boolean Break = false;
     
