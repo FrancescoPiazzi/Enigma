@@ -11,6 +11,8 @@ public class Keyboard {
   final color DarkColor = color(20);
   final color LightColor = color(230);
   final color ClickedColor = color (200, 0, 0);
+  final color BackgroundColor = color(200);
+  final color WireColor = color(200, 0, 0);
   
   private Button[][] buttons;
   
@@ -79,6 +81,8 @@ public class Keyboard {
 
   void DrawGUI() {
     
+    background(BackgroundColor);
+    
     //Testo tradotto
     fill(DarkColor);
     if (CriptedText.length() < LineLength){
@@ -124,19 +128,20 @@ public class Keyboard {
           text(Letters.getLetter(j, i), buttons[i][j].getLeft(), buttons[i][j].getTop());
           
           //Collegamenti tra i pulsanti
-          if(buttons[i][j].clicked){
+          /*if(buttons[i][j].clicked){
             stroke(ClickedColor);
             line(buttons[i][j].XPos, buttons[i][j].YPos, mouseX, mouseY);
             noStroke();
-          }
+          }*/
         }
       }
     }
     
     for(int i = 0; i < 3; i++){
       for(int j = 0; j < 10; j++){
-        if(plugboard.plugs[i][j] != Letters.getLetter(j, i)){
-          stroke(200, 0, 0);
+        if(plugboard.plugs[i][j] != Letters.getLetter(j, i)){  //Non capisco perchè non mi dia errore nonostante plugs sia privata, in caso il metodo get c'è...
+          stroke(WireColor);
+          strokeWeight(3);
           float X1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getLeft();
           float Y1 = buttons[Letters.getPosY(plugboard.plugs[i][j])][Letters.getPosX(plugboard.plugs[i][j])].getTop();
           float X2 = buttons[i][j].getLeft();
