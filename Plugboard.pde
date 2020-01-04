@@ -1,4 +1,4 @@
-public class Plugboard{
+/*public class Plugboard{
 
   private char[][] plugs;
   
@@ -21,4 +21,4 @@ public class Plugboard{
   public char getPlug(int PosX, int PosY){
     return plugs[PosY][PosX];
   }
-}
+}*/

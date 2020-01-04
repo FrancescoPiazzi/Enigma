@@ -16,7 +16,7 @@ public class Button{
   private boolean pressed;
   private boolean clicked;
   
-  //private char pluggedTo;
+  private char pluggedTo;
   
   private int XPos, YPos;
   
@@ -29,7 +29,7 @@ public class Button{
     pressed = false;
     clicked = false;
     
-    //pluggedTo = Letters.getLetter(XPos, YPos);
+    pluggedTo = Letters.getLetter(XPos, YPos);
     
     this.XPos = LeftDistance + XPos*ColumnDistance + YPos*HorizontalDistance;
     this.YPos = RawDistance*YPos + TopDistance;
@@ -59,7 +59,7 @@ public class Button{
   }
   
   public boolean updateClickedButton(){
-    if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2)) {
+    if((Math.sqrt(Math.pow(mouseX-XPos, 2) + Math.pow(mouseY-YPos, 2) ) < ButtonSize/2) && Key != ' ') {
         clicked = true;
         return true;
     }
@@ -96,7 +96,15 @@ public class Button{
     return clicked;
   }
   
-  /*public void plugTo(char chToPlug){
+  public void plugTo(char chToPlug){
     pluggedTo = chToPlug;
-  }*/
+  }
+  
+  public char getPluggedTo(){
+    return pluggedTo;
+  }
+  
+  public void unplug(){
+    pluggedTo = Key;
+  }
 }
