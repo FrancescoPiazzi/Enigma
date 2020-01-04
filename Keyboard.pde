@@ -24,7 +24,6 @@ public class Keyboard {
   private Reflector ref;
   private String CriptedText;
   private boolean[] TakenRotors;
-  //private Plugboard plugboard;
   
   public Keyboard() {
     buttons = new Button[3][10];
@@ -39,12 +38,11 @@ public class Keyboard {
     r3 = new Rotor3();
     ref =  new Reflector1();     
     TakenRotors = new boolean[5];
-    TakenRotors[0] = true; //<>//
+    TakenRotors[0] = true;
     TakenRotors[1] = true;
     TakenRotors[2] = true;
 
     CriptedText = "";
-    //plugboard = new Plugboard();
   }
 
   public void light(char CharToLightUp, boolean On) {
@@ -56,7 +54,6 @@ public class Keyboard {
     char CriptedChar;
     if (k != 32) {
       CriptedChar = Letters.getLetter(k);
-      //CriptedChar = plugboard.plugs[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)];
       CriptedChar = buttons[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)].pluggedTo;
       CriptedChar = r1.convert(CriptedChar);
       CriptedChar = r2.convert(CriptedChar);
@@ -66,7 +63,6 @@ public class Keyboard {
       CriptedChar = r2.reverseConvert(CriptedChar);
       CriptedChar = r1.reverseConvert(CriptedChar);
       CriptedChar = buttons[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)].pluggedTo;
-      //CriptedChar = plugboard.plugs[Letters.getPosY(CriptedChar)][Letters.getPosX(CriptedChar)];
 
       if (r1.step()) {
         if (r2.step()) {
@@ -127,24 +123,20 @@ public class Keyboard {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 10; j++) {
         if ((i != 1 || j != 9) && (i != 2 || j != 8) && (i != 2 || j != 9)) {
+          
           //I pulsanti e le lettere sopra
           fill(buttons[i][j].getBackColor());
           ellipse(buttons[i][j].getLeft(), buttons[i][j].getTop(), Button.ButtonSize, Button.ButtonSize);
           fill(buttons[i][j].getTextColor());
           text(Letters.getLetter(j, i), buttons[i][j].getLeft(), buttons[i][j].getTop());
           
-          //Collegamenti tra i pulsanti
-          /*if(buttons[i][j].clicked){
-            stroke(ClickedColor);
-            line(buttons[i][j].XPos, buttons[i][j].YPos, mouseX, mouseY);
-            noStroke();
-          }*/
         }
       }
     }
     
-    for(int i = 0; i < 3; i++){
-      for(int j = 0; j < 10; j++){
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 10; j++) {
+        //Plug
         if(buttons[i][j].getPluggedTo() != Letters.getLetter(j, i)){  //Non capisco perchè non mi dia errore nonostante plugs sia privata, in caso il metodo get c'è...
           stroke(WireColor);
           strokeWeight(WireSize);
@@ -155,12 +147,25 @@ public class Keyboard {
           line(X1, Y1, X2, Y2);
           fill(PlugColor); 
           strokeWeight(1);
-          ellipse(X1, Y1, PlugSize, PlugSize);
+          ellipse(X1, Y1, PlugSize, PlugSize); //<>//
           ellipse(X2, Y2, PlugSize, PlugSize);
+          noStroke();
+        }       
+      }
+    }
+    
+    //Filo che va dal pulsante cliccato al mouse
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 10; j++) {
+        if(buttons[i][j].clicked){
+          stroke(ClickedColor);
+          strokeWeight(WireSize);
+          line(buttons[i][j].XPos, buttons[i][j].YPos, mouseX, mouseY);
           noStroke();
         }
       }
     }
+    
     updateAllPressedKeys();  
   }
 
@@ -239,7 +244,7 @@ public class Keyboard {
         TakenRotors[4] = true;
         return new Rotor5();
       default:
-        return new Rotor1();  //In teoria non dovrei mai arrivarci ma se non lo metto processing mi insulta pt.2
+        return new Rotor1();  //In teoria non dovrei mai arrivarci ma se non lo metto processing mi insulta
     }
       
   }
@@ -267,18 +272,28 @@ public class Keyboard {
     for(int i = 0; i < 3; i++){
       for (int j = 0; j < 10; j++){
         if(buttons[i][j].updateClickedButton()){
-          if(buttons[i][j].getPluggedTo() == Letters.getLetter(j, i) && prevClickedKey != ' '){  //Se quel tasto non è associato con un altro vuol dire che quel tasto non è connesso a nulla  //<>//
-            buttons[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)].plugTo(Letters.getLetter(j, i)); //<>//
+          if(buttons[i][j].getPluggedTo() == Letters.getLetter(j, i) && prevClickedKey != ' '){  //Se quel tasto non è associato con un altro vuol dire che quel tasto non è connesso a nulla 
+            buttons[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)].plugTo(Letters.getLetter(j, i));
             buttons[Letters.getPosY(Letters.getLetter(j, i))][Letters.getPosX(Letters.getLetter(j, i))].plugTo(prevClickedKey);
             buttons[i][j].setClicked(false);
             buttons[Letters.getPosY(prevClickedKey)][Letters.getPosX(prevClickedKey)].setClicked(false);
             break;  //TODO: ce ne vuole uno anche per uscire dal ciclo esterno come fatto in alto
           }
           else{
+            buttons[i][j].setClicked(false);
+            System.out.println("Set to false: " + buttons[i][j].Key);
+            buttons[Letters.getPosY(buttons[i][j].getPluggedTo())][Letters.getPosX((buttons[i][j].getPluggedTo()))].setClicked(true);
+            System.out.println("Set to true: " + buttons[Letters.getPosY(buttons[i][j].getPluggedTo())][Letters.getPosX((buttons[i][j].getPluggedTo()))].Key + "\n");
             buttons[Letters.getPosY(buttons[i][j].getPluggedTo())][Letters.getPosX((buttons[i][j].getPluggedTo()))].unplug();
             buttons[i][j].unplug();
           }
+          Break = true;
+          break;
         }
+      }
+      if(Break){
+      Break = false;
+      break;
       }
     }
     
@@ -291,9 +306,5 @@ public class Keyboard {
       }
     }
   }
-  
-  /*public void setClickedButton(int PosX, int PosY, boolean Clicked){
-    buttons[PosX][PosY].setClicked(Clicked);
-  }*/
   
 }

@@ -74,10 +74,6 @@ public class Button{
       BackColor = LightUpColor;
       TextColor = DarkColor;
     }
-    else if(clicked){
-      BackColor = ClickedColor;
-      TextColor = DarkColor;
-    }
     else{
       BackColor = DarkColor;
       TextColor = LightColor;
